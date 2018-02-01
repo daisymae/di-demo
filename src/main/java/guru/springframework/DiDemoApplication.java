@@ -22,6 +22,11 @@ public class DiDemoApplication {
 		 * aware of it as well.
 		 */
 		
+		// this now has the primarygreetingservice and should see that in the output
+		// were getting 2 outputs from primarygreetingservice, due to propertyInjectedController
+		// also picking up the primary
+		System.out.println(controller.hello());
+		
 		// this fails with the code pulled from manualDI
 		// once the controller is marked as such, still fails because haven't told Spring to inject GreetinService
 		// once the service is autowired, this runs

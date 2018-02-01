@@ -1,6 +1,7 @@
 package guru.springframework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import guru.springframework.services.GreetingService;
@@ -25,8 +26,13 @@ public class PropertyInjectedController {
 	 * and dependent on property names
 	 */
 	@Autowired
+	@Qualifier("greetingServiceImpl") // needed to not pick up the primary; primary will override the name injection
 //	public GreetingService greetingService; // this will fail
-	public GreetingService greetingServiceImpl; // this will work through reflection
+	public GreetingService greetingServiceImpl; // this will work through reflection; 
+	/* however, once a PrimaryGreetingService is introduced, 
+	 * it will now use that one unless we specify a qualifier here -- 
+	 * see? this is how it can get you into trouble
+	 */
 //	public GreetingServiceImpl greetingService; // this also works, but is hard-coded
 	public String sayHello() {
 		return greetingServiceImpl.sayGreeting();
