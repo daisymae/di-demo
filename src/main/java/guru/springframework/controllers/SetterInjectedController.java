@@ -1,30 +1,36 @@
 package guru.springframework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import guru.springframework.services.GreetingServiceImpl;
+import guru.springframework.services.GreetingService;
 
 /**
  * Another bad example
  * 
  * @author corcutt
  *
- * Can make better by using the interface GreetingService so then any class
- * implementing the service can be used
+ * Added new implementations of the service, so remove the Impl class here and use
+ * the interface so can inject different ones
  */
 @Controller
 public class SetterInjectedController {
 
-	private GreetingServiceImpl greetingService;
+	private GreetingService greetingService;
 	
 	public String sayHello() {
 		return greetingService.sayGreeting();
 	}
 	
 	// for this example, need to use autowired on the setter
+	/* also use the @Qualifier here similar to that in the 
+	 * ConstructorInjectedController. Can set on the method or
+	 * on the parameter as in ConstructorInjectedController
+	 */
 	@Autowired
-	public void setGreetingService(GreetingServiceImpl greetingService) {
+	@Qualifier("setterGreetingService")
+	public void setGreetingService(GreetingService greetingService) {
 		this.greetingService = greetingService;
 	}
 }

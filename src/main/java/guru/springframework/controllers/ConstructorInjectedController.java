@@ -1,26 +1,27 @@
 package guru.springframework.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import guru.springframework.services.GreetingServiceImpl;
+import guru.springframework.services.GreetingService;
 
 /**
  * Same issue as Setter
  * @author corcutt
  *
- * If refactor to use interface rather than implementation, can take in any type
- * that implements the interface.
+ * Added some new service implementations, so change this to use the interface to 
+ * be able to use any of them
  * 
  */
 @Controller
 public class ConstructorInjectedController {
 
-	private GreetingServiceImpl greetingService;
+	private GreetingService greetingService;
 	
-	// @Autowired not needed, but denotes intention
-	@Autowired
-	public ConstructorInjectedController(GreetingServiceImpl greetingService) {
+	/* use the qualifier annotation
+	 * it takes a string, which is the bean name
+	 */
+	public ConstructorInjectedController(@Qualifier("constructorGreetingService")GreetingService greetingService) {
 		this.greetingService = greetingService;
 	}
 	
