@@ -1,5 +1,8 @@
 package guru.springframework.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import guru.springframework.services.GreetingServiceImpl;
 
 /**
@@ -7,15 +10,18 @@ import guru.springframework.services.GreetingServiceImpl;
  * 
  * @author corcutt
  *
- * Don't want to inject through properties
- * Case study of what NOT to do
+ * Mark as a Controller annotation to mark as a Spring component
+ * so Spring Framework will manage as a SpringBean
  */
+@Controller
 public class PropertyInjectedController {
 
-	/* using concrete class name - ugh */
+
+	/* use autowired annotation to tell Spring to inject this otherwise, get NPE */
+	@Autowired
 	public GreetingServiceImpl greetingService;
 	
-	String sayHello() {
+	public String sayHello() {
 		return greetingService.sayGreeting();
 	}
 	
